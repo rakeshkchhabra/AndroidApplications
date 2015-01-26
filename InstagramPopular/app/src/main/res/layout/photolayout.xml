@@ -3,25 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imgUser"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_launcher"
-        android:layout_marginBottom="40dp" />
+        android:id="@+id/header"
+        android:background="#4099a491">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgUser"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_launcher"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_username"
-        android:id="@+id/imgUsername"
-        android:layout_alignLeft="@+id/imgUser"
-        android:textColor="#80a4113b"
-        android:layout_marginLeft="100dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_username"
+            android:id="@+id/imgUsername"
+            android:layout_alignLeft="@+id/imgUser"
+            android:textColor="#80a4113b"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="X days ago"
+            android:id="@+id/timediff"
+            android:textColor="#80a4113b"
+            android:textStyle="bold"
+            android:gravity="right" />
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="fill_parent"
@@ -29,60 +46,61 @@
         android:id="@+id/imgPhoto"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:layout_alignTop="@+id/imgUser"
+        android:layout_alignTop="@+id/header"
         android:layout_alignParentLeft="true"
         android:src="@drawable/ic_launcher"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="50dp"
+        android:padding="2dp" />
+
+    <TextView
+        android:id="@+id/imgCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_caption"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_below="@+id/imgPhoto"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgPhoto"
-        android:layout_marginTop="250dp"
-        android:id="@+id/likelinear" >
+        android:layout_below="@+id/imgCaption"
+        android:id="@+id/likelinear"
+        android:background="#4099a491"
+        android:layout_marginTop="20dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:id="@+id/imgLike"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/heart_like"
-            android:layout_marginTop="15dp" />
+            android:src="@drawable/heart_like"/>
 
         <TextView
             android:id="@+id/countLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/default_caption"
-            android:layout_marginLeft="20dp"
-            android:textColor="#801131a4" />
-
-        <TextView
-            android:id="@+id/imgCaption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/default_caption"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="10dp"
+            android:textColor="#bfa40a1b"
+            android:textStyle="bold"
+            android:textSize="10dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/likelinear"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="60dp"
-        android:id="@+id/commentlinear1" >
+        android:layout_below="@+id/likelinear"
+        android:id="@+id/commentlinear1"
+        android:background="#4099a491">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/imgComment1"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_launcher"
-            android:layout_marginTop="15dp" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/commentor1"
@@ -90,7 +108,10 @@
             android:layout_height="wrap_content"
             android:text="@string/default_commentor"
             android:layout_marginLeft="20dp"
-            android:textColor="#801131a4" />
+            android:textAlignment="center"
+            android:textColor="#801131a4"
+            android:textStyle="bold"
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/comment1"
@@ -100,24 +121,23 @@
             android:maxLines="4"
             android:ellipsize="end"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:textSize="10dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/commentlinear1"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="60dp"
-        android:id="@+id/commentlinear2" >
+        android:layout_below="@+id/commentlinear1"
+        android:id="@+id/commentlinear2"
+        android:background="#4099a491">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/imgComment2"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_launcher"
-            android:layout_marginTop="15dp" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/commentor2"
@@ -125,7 +145,10 @@
             android:layout_height="wrap_content"
             android:text="@string/default_commentor"
             android:layout_marginLeft="20dp"
-            android:textColor="#801131a4" />
+            android:textAlignment="center"
+            android:textColor="#801131a4"
+            android:textStyle="bold"
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/comment2"
@@ -135,7 +158,9 @@
             android:maxLines="4"
             android:ellipsize="end"
             android:layout_marginBottom="40dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:textSize="10dp" />
     </LinearLayout>
 
     <TextView
@@ -144,9 +169,10 @@
         android:text="New Text"
         android:id="@+id/commentCount"
         android:layout_below="@+id/commentlinear2"
-        android:layout_alignRight="@+id/commentlinear2"
-        android:layout_alignEnd="@+id/commentlinear2"
-        android:layout_marginRight="100dp"
-        android:textColor="#800d29a4" />
+        android:layout_alignLeft="@+id/commentlinear2"
+        android:layout_alignStart="@+id/commentlinear2"
+        android:textColor="#800d29a4"
+        android:textStyle="bold"
+        android:textSize="10dp" />
 
 </RelativeLayout>

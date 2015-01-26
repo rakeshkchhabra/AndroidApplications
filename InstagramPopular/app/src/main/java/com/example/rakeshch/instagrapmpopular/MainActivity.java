@@ -1,5 +1,6 @@
 package com.example.rakeshch.instagrapmpopular;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
                     for (int i = 0; i < photoJson.length(); i++) {
                         PhotoModel photoModel = new PhotoModel();
                         JSONObject jsonObject = photoJson.getJSONObject(i);
+                        photoModel.createdTime = jsonObject.getString("created_time");
                         photoModel.userName = jsonObject.getJSONObject("user").getString("username");
                         photoModel.userPhotoUrl = jsonObject.getJSONObject("user").getString("profile_picture");
                         if (jsonObject.getJSONObject("caption") != null) {
@@ -91,6 +93,12 @@ public class MainActivity extends ActionBarActivity {
                         if(commentArray.length() > 1) {
                             photoModel.photoComment2 = new PhotoComment(commentArray.getJSONObject(1).getJSONObject("from").getString("username"),commentArray.getJSONObject(1).getJSONObject("from").getString("profile_picture"),commentArray.getJSONObject(1).getString("text"));
                         }
+
+                        for(int ctr = 0;ctr<commentArray.length();ctr++) {
+                            PhotoComment photoComment = new PhotoComment(commentArray.getJSONObject(ctr).getJSONObject("from").getString("username"),commentArray.getJSONObject(ctr).getJSONObject("from").getString("profile_picture"),commentArray.getJSONObject(ctr).getString("text"));
+                            photoModel.photoComments.add(photoComment);
+                        }
+
                         photoModelList.add(photoModel);
                     }
                     photoAdapater.notifyDataSetChanged();
@@ -123,5 +131,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public FragmentManager fetchFragmentManager() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        return fragmentManager;
     }
 }

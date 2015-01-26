@@ -1,5 +1,6 @@
 package com.example.rakeshch.instagrapmpopular;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class PhotoAdapater extends ArrayAdapter<PhotoModel> {
                 .oval(true)
                 .build();
 
-        PhotoModel photoModel = getItem(position);
+        final PhotoModel photoModel = getItem(position);
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.photolayout, parent, false);
         }
@@ -51,6 +52,7 @@ public class PhotoAdapater extends ArrayAdapter<PhotoModel> {
         TextView commentor1 = (TextView) convertView.findViewById(R.id.commentor1);
         TextView commentor2 = (TextView) convertView.findViewById(R.id.commentor2);
         TextView commentCount = (TextView) convertView.findViewById(R.id.commentCount);
+        TextView createdTime = (TextView) convertView.findViewById(R.id.timediff);
 
         imgLikes.setText(photoModel.likesCount + " likes");
         imgCaption.setText(photoModel.caption);
@@ -59,8 +61,8 @@ public class PhotoAdapater extends ArrayAdapter<PhotoModel> {
         imgPhoto.setImageResource(0);
         Picasso.with(getContext()).load(photoModel.imageUrl).into(imgPhoto);
 
-        imgUserPhoto.getLayoutParams().height = 200;
-        imgUserPhoto.getLayoutParams().width = 200;
+        imgUserPhoto.getLayoutParams().height = 100;
+        imgUserPhoto.getLayoutParams().width = 100;
         imgUserPhoto.setImageResource(0);
         Picasso.with(getContext()).load(photoModel.userPhotoUrl).transform(transformation).into(imgUserPhoto);
 
@@ -77,6 +79,28 @@ public class PhotoAdapater extends ArrayAdapter<PhotoModel> {
         commentor1.setText(photoModel.photoComment1.commentor);
         commentor2.setText(photoModel.photoComment2.commentor);
         commentCount.setText("See all " + photoModel.commentCount + " Comments.");
+
+        commentCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.FragmentManager fm = ((MainActivity) getContext()).fetchFragmentManager();
+                CommentDialogFragment commentDialog = CommentDialogFragment.newInstance("Comments", photoModel.photoComments);
+                commentDialog.show(fm, "fragment_comments");
+            }
+        });
+
+        long time = Long.parseLong(photoModel.createdTime);
+        long now = System.currentTimeMillis()/1000;
+
+        if(now-time < 3600) {
+            createdTime.setText( "-" + (now-time)/60 + "m ");
+        }
+        else if(now-time < 86400) {
+            createdTime.setText( "-" +(now-time)/3600 + "h ");
+        }
+        else {
+            createdTime.setText( "-" +(now-time)/86400 + "d ");
+        }
         return convertView;
     }
 }
