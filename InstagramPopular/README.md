@@ -14,6 +14,8 @@ Completed user stories:
  * [x] Optional: Add pull-to-refresh for popular stream with SwipeRefreshLayout 
  * [x] Optional: Show latest two comment for each photo 
  * [x] Optional: Display each user profile image using a RoundedImageView 
+ * [x] Optional: Improve the user interface through styling and coloring
+ * [x] Optional: Allow user to view all comments for an image within a separate screen or a dialog fragment
 
 Notes:
 
