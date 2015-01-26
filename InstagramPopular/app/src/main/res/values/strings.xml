@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Instagram Popular Photos</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="default_caption">This is default caption</string>
+    <string name="default_username">username</string>
+    <string name="default_comment">This is default comment</string>
+    <string name="default_commentor">Commentor</string>
+
+</resources>
