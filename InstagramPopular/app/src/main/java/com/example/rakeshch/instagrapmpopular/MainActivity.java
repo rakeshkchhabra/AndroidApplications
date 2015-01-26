@@ -87,13 +87,6 @@ public class MainActivity extends ActionBarActivity {
                         photoModel.commentCount = jsonObject.getJSONObject("comments").getInt("count");
 
                         JSONArray commentArray = jsonObject.getJSONObject("comments").getJSONArray("data");
-                        if(commentArray.length() > 0) {
-                            photoModel.photoComment1 = new PhotoComment(commentArray.getJSONObject(0).getJSONObject("from").getString("username"),commentArray.getJSONObject(0).getJSONObject("from").getString("profile_picture"),commentArray.getJSONObject(0).getString("text"));
-                        }
-                        if(commentArray.length() > 1) {
-                            photoModel.photoComment2 = new PhotoComment(commentArray.getJSONObject(1).getJSONObject("from").getString("username"),commentArray.getJSONObject(1).getJSONObject("from").getString("profile_picture"),commentArray.getJSONObject(1).getString("text"));
-                        }
-
                         for(int ctr = 0;ctr<commentArray.length();ctr++) {
                             PhotoComment photoComment = new PhotoComment(commentArray.getJSONObject(ctr).getJSONObject("from").getString("username"),commentArray.getJSONObject(ctr).getJSONObject("from").getString("profile_picture"),commentArray.getJSONObject(ctr).getString("text"));
                             photoModel.photoComments.add(photoComment);

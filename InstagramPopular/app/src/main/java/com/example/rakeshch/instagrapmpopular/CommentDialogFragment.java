@@ -20,12 +20,12 @@ public class CommentDialogFragment extends DialogFragment {
     private static ArrayList<PhotoComment> commentData;
 
     public static CommentDialogFragment newInstance(String title, ArrayList<PhotoComment> comments) {
-        CommentDialogFragment frag = new CommentDialogFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        frag.setArguments(args);
+        CommentDialogFragment dialogFragment = new CommentDialogFragment();
         commentData = comments;
-        return frag;
+        Bundle arguments = new Bundle();
+        arguments.putString("title", title);
+        dialogFragment.setArguments(arguments);
+        return dialogFragment;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CommentDialogFragment extends DialogFragment {
         CommentsAdapter adapter = new CommentsAdapter(getActivity(), commentData);
         ListView lvComments = (ListView) view.findViewById(R.id.commentsList);
         lvComments.setAdapter(adapter);
-        String title = getArguments().getString("title", "Comments");
+        String title = getArguments().getString("title", "User Comments");
         getDialog().setTitle(title);
         getDialog().setCanceledOnTouchOutside(true);
         return view;

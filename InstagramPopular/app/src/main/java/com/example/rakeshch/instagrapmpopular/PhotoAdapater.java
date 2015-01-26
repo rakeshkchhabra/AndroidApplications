@@ -72,12 +72,12 @@ public class PhotoAdapater extends ArrayAdapter<PhotoModel> {
         imgCommentor2.getLayoutParams().height = 100;
         imgCommentor2.getLayoutParams().width = 100;
         imgCommentor2.setImageResource(0);
-        Picasso.with(getContext()).load(photoModel.photoComment1.commentorProfileUrl).transform(transformation).into(imgCommentor1);
-        Picasso.with(getContext()).load(photoModel.photoComment2.commentorProfileUrl).transform(transformation).into(imgCommentor2);
-        comment1.setText(photoModel.photoComment1.comment);
-        comment2.setText(photoModel.photoComment2.comment);
-        commentor1.setText(photoModel.photoComment1.commentor);
-        commentor2.setText(photoModel.photoComment2.commentor);
+        Picasso.with(getContext()).load(photoModel.photoComments.get(0).commentorProfileUrl).transform(transformation).into(imgCommentor1);
+        Picasso.with(getContext()).load(photoModel.photoComments.get(1).commentorProfileUrl).transform(transformation).into(imgCommentor2);
+        comment1.setText(photoModel.photoComments.get(0).comment);
+        comment2.setText(photoModel.photoComments.get(1).comment);
+        commentor1.setText(photoModel.photoComments.get(0).commentor);
+        commentor2.setText(photoModel.photoComments.get(1).commentor);
         commentCount.setText("See all " + photoModel.commentCount + " Comments.");
 
         commentCount.setOnClickListener(new View.OnClickListener() {
