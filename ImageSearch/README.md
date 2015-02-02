@@ -2,7 +2,7 @@
 
 (Image Search App README)
 
-This is an Android application to view popular photos in picasa
+This is an Android application to search images using google image search apis
 
 Time spent: 10 hours spent in total
 
