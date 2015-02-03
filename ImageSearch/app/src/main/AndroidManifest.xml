@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".ImageFullView"
-            android:label="@string/title_activity_image_full_view" >
+            android:label="@string/title_activity_image_full_view"
+            >
         </activity>
     </application>
 

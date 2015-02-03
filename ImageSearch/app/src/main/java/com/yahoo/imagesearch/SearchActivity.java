@@ -16,6 +16,8 @@ import android.widget.GridView;
 import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class SearchActivity extends ActionBarActivity {
     private List<ImageItem> imageItems;
     private ImageAdapter imageAdapter;
     private SearchParam lastSearchParam = new SearchParam();
+    StaggeredGridView gridView;
     private int label = 1;
 
     @Override
@@ -35,8 +38,9 @@ public class SearchActivity extends ActionBarActivity {
 
         imageItems = new ArrayList<>();
         imageAdapter = new ImageAdapter(this,imageItems);
-        GridView gridView = (GridView) findViewById(R.id.gvImages);
+        gridView = (StaggeredGridView) findViewById(R.id.gvImages);
         gridView.setAdapter(imageAdapter);
+
 
         gridView.setOnScrollListener(new EndlessScrollListener() {
             @Override
@@ -58,9 +62,7 @@ public class SearchActivity extends ActionBarActivity {
         searchParam.siteFilter = lastSearchParam.siteFilter;
         searchParam.label = offset;
         searchParam.start = (offset-1)*8;
-        ImageSearchClient.fetchImages(imageItems, searchParam);
-
-        imageAdapter.notifyDataSetChanged();
+        ImageSearchClient.fetchImages(imageItems, searchParam, imageAdapter);
     }
 
     @Override
@@ -83,9 +85,7 @@ public class SearchActivity extends ActionBarActivity {
                 searchParam.queryString = query;
                 searchParam.label = label;
                 searchParam.start = (label-1) * 8;
-                ImageSearchClient.fetchImages(imageItems, searchParam);
-
-                imageAdapter.notifyDataSetChanged();
+                ImageSearchClient.fetchImages(imageItems, searchParam, imageAdapter);
                 return true;
             }
 
@@ -107,11 +107,12 @@ public class SearchActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.miSetting) {
             android.support.v4.app.FragmentManager fm = fetchFragmentManager();
+            //SettingDialogFragment settingDialogFragment = new SettingDialogFragment();
             SettingDialogFragment settingDialogFragment = SettingDialogFragment.newInstance("Settings");
             Bundle args = new Bundle();
             args.putSerializable("Settings", lastSearchParam);
             settingDialogFragment.setArguments(args);
-            settingDialogFragment.show(fm, "settings");
+            settingDialogFragment.show(fm, "Settings");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -134,8 +135,7 @@ public class SearchActivity extends ActionBarActivity {
                 lastSearchParam = searchParam;
                 imageItems.clear();
                 imageAdapter.notifyDataSetChanged();
-                ImageSearchClient.fetchImages(imageItems, searchParam);
-                imageAdapter.notifyDataSetChanged();
+                ImageSearchClient.fetchImages(imageItems, searchParam, imageAdapter);
             }
         }
     };

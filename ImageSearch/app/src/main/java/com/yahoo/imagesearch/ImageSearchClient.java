@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ImageSearchClient {
 
-    public static void fetchImages(final List<ImageItem> imageItems, SearchParam searchParams) {
+    public static void fetchImages(final List<ImageItem> imageItems, SearchParam searchParams, final ImageAdapter imageAdapter) {
 
         String urlPattern = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q={0}&rsz=8&label={1}&start={2}&as_filetype={3}&as_sitesearch={4}&imgcolor={5}&imgsz={6}";
         String url = MessageFormat.format(urlPattern,searchParams.queryString,searchParams.label,searchParams.start, ImageSearchConstants.imageTypeFilters[searchParams.imageTypePosition], searchParams.siteFilter, ImageSearchConstants.colorFilters[searchParams.colorFilterPosition], ImageSearchConstants.imageSizes[searchParams.imageSizePosition]);
@@ -47,8 +47,12 @@ public class ImageSearchClient {
                         imageItem.tabHeight = Integer.parseInt(result.getString("tbHeight"));
                         imageItem.height = Integer.parseInt(result.getString("height"));
                         imageItem.width = Integer.parseInt(result.getString("width"));
+                        imageItem.tbImageUrl = result.getString("tbUrl");
+                        imageItem.title = result.getString("title");
                         Log.i("dimension", imageItem.toString());
                         imageItems.add(imageItem);
+                        imageAdapter.notifyDataSetChanged();
+                        Log.i("Size now " , " " + imageItems.size());
                     }
                 }
                 catch (JSONException e) {
@@ -61,6 +65,7 @@ public class ImageSearchClient {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         };
+        Log.d("Debug",url);
         asyncHttpClient.get(url,jsonHttpResponseHandler);
     }
 

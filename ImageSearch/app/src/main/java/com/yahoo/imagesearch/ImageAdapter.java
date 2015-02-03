@@ -2,6 +2,7 @@ package com.yahoo.imagesearch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class ImageAdapter extends ArrayAdapter<ImageItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i("Debug", "Coming here");
 
         final ImageItem imageItem = getItem(position);
 
@@ -33,8 +35,8 @@ public class ImageAdapter extends ArrayAdapter<ImageItem> {
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
         imageView.setImageResource(0);
-        imageView.getLayoutParams().width = 500;
-        imageView.getLayoutParams().height = 500;
+       // imageView.getLayoutParams().width = imageItem.tabWidth;
+       // imageView.getLayoutParams().height = imageItem.tabHeight;
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +45,13 @@ public class ImageAdapter extends ArrayAdapter<ImageItem> {
                 intent.putExtra("url",imageItem.imageUrl);
                 intent.putExtra("height",imageItem.height);
                 intent.putExtra("width",imageItem.width);
+                intent.putExtra("title", imageItem.title);
 
                 getContext().startActivity(intent);
             }
         });
-
-        Picasso.with(getContext()).load(imageItem.imageUrl).into(imageView);
+        Log.i("Debug", "Lading " + imageItem.tbImageUrl);
+        Picasso.with(getContext()).load(imageItem.tbImageUrl).into(imageView);
         return convertView;
     }
 }

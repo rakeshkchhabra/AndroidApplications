@@ -10,6 +10,8 @@ public class ImageItem {
     public int tabHeight;
     public int width;
     public int height;
+    public String tbImageUrl;
+    public String title;
 
     @Override
     public String toString() {
@@ -19,6 +21,7 @@ public class ImageItem {
                 ", tabHeight=" + tabHeight +
                 ", width=" + width +
                 ", height=" + height +
+                ", tbImageUrl='" + tbImageUrl + '\'' +
                 '}';
     }
 }

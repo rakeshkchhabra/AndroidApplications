@@ -1,22 +1,32 @@
 package com.yahoo.imagesearch;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by rakeshch on 1/31/15.
  */
 public class SettingDialogFragment  extends DialogFragment {
-
 
     public static SettingDialogFragment newInstance(String title) {
         SettingDialogFragment dialogFragment = new SettingDialogFragment();
@@ -27,13 +37,31 @@ public class SettingDialogFragment  extends DialogFragment {
     }
 
     @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Holo_NoActionBar_TranslucentDecor);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.activity_settings, null);
+        final Drawable d = new ColorDrawable(Color.WHITE);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        d.setAlpha(130);
+        dialog.getWindow().setBackgroundDrawable(d);
+        dialog.getWindow().setContentView(view);
+        final WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.gravity = Gravity.CENTER;
+        dialog.setCanceledOnTouchOutside(true);
+        return dialog;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        getDialog().setTitle("Advanced Settings");
         SearchParam searchParam = (SearchParam) getArguments().getSerializable("Settings");
 
         View view = inflater.inflate(R.layout.activity_settings, container);
+
 
         final Spinner imageSizeSpinner = (Spinner) view.findViewById(R.id.spinnerImageSize);
         String[] imageSizes = ImageSearchConstants.imageSizes.clone();
@@ -62,11 +90,11 @@ public class SettingDialogFragment  extends DialogFragment {
         final TextView siteFilter = (TextView) view.findViewById(R.id.siteFilter);
         siteFilter.setText(searchParam.siteFilter);
 
-        String title = getArguments().getString("title");
-        getDialog().setTitle(title);
-        getDialog().setCanceledOnTouchOutside(true);
+       // String title = getArguments().getString("title");
+       // getDialog().setTitle(title);
+       // getDialog().setCanceledOnTouchOutside(true);
 
-        Button btCancel = (Button) view.findViewById(R.id.btCancel);
+        ImageButton btCancel = (ImageButton) view.findViewById(R.id.btCancel);
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +102,7 @@ public class SettingDialogFragment  extends DialogFragment {
             }
         });
 
-        Button btSave = (Button) view.findViewById(R.id.btSave);
+        ImageButton btSave = (ImageButton) view.findViewById(R.id.btSave);
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

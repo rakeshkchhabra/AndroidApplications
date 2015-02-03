@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 public class ImageFullView extends ActionBarActivity {
 
+    private String imageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,28 +24,17 @@ public class ImageFullView extends ActionBarActivity {
         final String url = getIntent().getStringExtra("url");
         int height = getIntent().getIntExtra("height",100);
         int width = getIntent().getIntExtra("width",100);
+        final String title = android.text.Html.fromHtml(getIntent().getStringExtra("title")).toString();
+
         Log.i("Dimensions : " , height + " " + width);
 
-        TouchImageView imageView = (TouchImageView) findViewById(R.id.fullImageView);
+        com.yahoo.imagesearch.TouchImageView imageView = (com.yahoo.imagesearch.TouchImageView) findViewById(R.id.fullImageView);
         imageView.setImageResource(0);
-        imageView.getLayoutParams().width = width;
-        imageView.getLayoutParams().height = height;
-
+        //imageView.getLayoutParams().width = width;
+        //imageView.getLayoutParams().height = height;
+        imageUrl = url;
+        setTitle(title);
         Picasso.with(this).load(url).into(imageView);
-
-        Button button = (Button) findViewById(R.id.emailButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent email = new Intent(android.content.Intent.ACTION_SEND);
-                email.setType("text/html");
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"rakeshkchhabra@gmail.com"});
-                email.putExtra(Intent.EXTRA_SUBJECT, "Nice picture");
-                String html = "<div dir=\"ltr\"><img src=\""+ url + "\" height=\"373\" width=\"497\"><br><br></div>";
-                email.putExtra(Intent.EXTRA_TEXT, html);
-                startActivity(Intent.createChooser(email, "Choose an Email client :"));
-            }
-        });
     }
 
 
@@ -63,8 +53,14 @@ public class ImageFullView extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.mailTo) {
+            Intent email = new Intent(android.content.Intent.ACTION_SEND);
+            email.setType("text/html");
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"rakeshkchhabra@gmail.com"});
+            email.putExtra(Intent.EXTRA_SUBJECT, "Nice picture");
+            String html = "<div dir=\"ltr\"><img src=\""+ imageUrl + "\" height=\"373\" width=\"497\"><br><br></div>";
+            email.putExtra(Intent.EXTRA_TEXT, html);
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
         }
 
         return super.onOptionsItemSelected(item);
