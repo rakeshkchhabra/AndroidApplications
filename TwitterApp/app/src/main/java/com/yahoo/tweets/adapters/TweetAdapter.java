@@ -121,6 +121,7 @@ public class TweetAdapter extends ArrayAdapter<TweetModel> {
                     text += "@" + tweetModel.getReTwittedByHandle() + " ";
                 }
                 args.putString("text", text);
+                args.putSerializable("user",((TwitterActivity) getContext()).getLoggedInUser());
                 replyDialogFragment.setArguments(args);
                 replyDialogFragment.show(fm, "Reply Tweet");
             }

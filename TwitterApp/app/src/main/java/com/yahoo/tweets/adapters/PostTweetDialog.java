@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import com.yahoo.tweets.R;
 import com.yahoo.tweets.TwitterApp;
 import com.yahoo.tweets.activities.TweetDetailActivity;
+import com.yahoo.tweets.models.LoggedInUser;
 import com.yahoo.tweets.utils.DialogCallBack;
 import com.yahoo.tweets.utils.TwitterClient;
 
@@ -43,9 +44,6 @@ import org.w3c.dom.Text;
  */
 public class PostTweetDialog extends DialogFragment {
 
-    private String userName;
-    private String screenName;
-    private String profileURL;
     private DialogCallBack callBack;
 
     public static PostTweetDialog newInstance(String title) {
@@ -86,38 +84,6 @@ public class PostTweetDialog extends DialogFragment {
         return dialog;
     }
 
-    private void fetchLoggedInUserDetails(final TextView tvUserName, final TextView tvScreenName, final ImageView ivUserPhoto) {
-
-        JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                if(response.length() >= 1) {
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(0);
-                        userName = jsonObject.getJSONObject("user").getString("name");
-                        screenName = jsonObject.getJSONObject("user").getString("screen_name");
-                        profileURL = jsonObject.getJSONObject("user").getString("profile_image_url");
-                        tvUserName.setText(userName);
-                        ivUserPhoto.setImageResource(0);
-                        Picasso.with(getActivity().getBaseContext()).load(profileURL).into(ivUserPhoto);
-                        tvScreenName.setText("@" + screenName);
-                    }
-                    catch(JSONException e) {
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        };
-
-        (new TwitterClient(getActivity().getBaseContext())).getUserTimeline(jsonHttpResponseHandler);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,6 +91,8 @@ public class PostTweetDialog extends DialogFragment {
         final Long in_reply_to_id =  getArguments().getLong("in_reply_to");
 
         final String text = getArguments().getString("text");
+
+        final LoggedInUser loggedInUser = (LoggedInUser) getArguments().getSerializable("user");
 
         View view = inflater.inflate(R.layout.activity_post_tweet, container);
 
@@ -159,9 +127,13 @@ public class PostTweetDialog extends DialogFragment {
         });
         etMyTweet.setSelection(text.length());
         TextView tvUserName = (TextView) view.findViewById(R.id.tvMyName);
+        tvUserName.setText(loggedInUser.getUserName());
         TextView tvTwitterHandle = (TextView) view.findViewById(R.id.tvMyTwitterHandle);
+        tvTwitterHandle.setText("@" +loggedInUser.getScreenName());
 
         ImageView imageView = (ImageView) view.findViewById(R.id.ivMyPhoto);
+        imageView.setImageResource(0);
+        Picasso.with(getActivity().getBaseContext()).load(loggedInUser.getProfileURL()).into(imageView);
 
         Button tweetButton = (Button) view.findViewById(R.id.ibTweet);
         tweetButton.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +156,6 @@ public class PostTweetDialog extends DialogFragment {
             }
         });
 
-        fetchLoggedInUserDetails(tvUserName, tvTwitterHandle, imageView);
         return view;
 
     }

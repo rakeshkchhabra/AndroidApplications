@@ -5,19 +5,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 import com.yahoo.tweets.R;
 import com.yahoo.tweets.TwitterApp;
 import com.yahoo.tweets.adapters.PostTweetDialog;
+import com.yahoo.tweets.models.LoggedInUser;
 import com.yahoo.tweets.utils.DialogCallBack;
 import com.yahoo.tweets.utils.EndlessScrollListener;
 import com.yahoo.tweets.utils.TwitterClient;
@@ -43,6 +48,7 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
     private String minIdSoFar = "-1";
     // to be used in refresh
     private Long sinceId;
+    private LoggedInUser loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,7 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
                 Bundle args = new Bundle();
                 args.putLong("in_reply_to", 0);
                 args.putString("text", "");
+                args.putSerializable("user",loggedInUser);
                 tweetDialogFragment.setArguments(args);
                 tweetDialogFragment.show(fm, "Post Tweet");
             }
@@ -119,11 +126,14 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
                 Bundle args = new Bundle();
                 args.putLong("in_reply_to", 0);
                 args.putString("text", "");
+                args.putSerializable("user",loggedInUser);
                 tweetDialogFragment.setArguments(args);
                 tweetDialogFragment.show(fm, "Post Tweet");
             }
         });
 
+        loggedInUser = new LoggedInUser();
+        fetchLoggedInUserDetails(loggedInUser);
         populateTweetList(1);
     }
 
@@ -195,4 +205,40 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
         twitterAdapter.notifyDataSetChanged();
         populateTweetList(1);
     }
+
+    private void fetchLoggedInUserDetails(final LoggedInUser loggedInUser) {
+
+        JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                if(response.length() >= 1) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(0);
+                        String userName = jsonObject.getJSONObject("user").getString("name");
+                        String screenName = jsonObject.getJSONObject("user").getString("screen_name");
+                        String profileURL = jsonObject.getJSONObject("user").getString("profile_image_url");
+                        loggedInUser.setProfileURL(profileURL);
+                        loggedInUser.setScreenName(screenName);
+                        loggedInUser.setUserName(userName);
+                    }
+                    catch(JSONException e) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        };
+
+        new TwitterClient(this).getUserTimeline(jsonHttpResponseHandler);
+    }
+
+    public LoggedInUser getLoggedInUser() {
+        return loggedInUser;
+    }
+
 }
