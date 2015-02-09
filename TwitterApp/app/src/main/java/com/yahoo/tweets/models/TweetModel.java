@@ -2,6 +2,7 @@ package com.yahoo.tweets.models;
 
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +22,9 @@ import com.activeandroid.query.Select;
  * 
  */
 @Table(name = "items")
-public class TweetModel extends Model {
+public class TweetModel extends Model implements Serializable {
 	// Define table fields
-    @Column(name = "id")
+    @Column(name = "tweetId")
     private String tweetId;
 	@Column(name = "name")
 	private String userName;
@@ -49,6 +50,8 @@ public class TweetModel extends Model {
     private String mediaHeight;
     @Column(name = "mediaWidth")
     private String mediaWidth;
+    @Column(name = "tweetCreatedAt")
+    private String tweetCreatedAt;
 
 	public TweetModel() {
 		super();
@@ -94,6 +97,7 @@ public class TweetModel extends Model {
             this.favoriteCount = String.valueOf(jsonObject.getInt("favorite_count"));
             this.retweetCount = String.valueOf(jsonObject.getInt("retweet_count"));
             this.tweet = jsonObject.getString("text");
+            this.tweetCreatedAt = jsonObject.getString("created_at");
 	        this.tweetTime = String.valueOf(Date.parse(jsonObject.getString("created_at")));
 
             if(jsonObject.has("entities") && ((JSONObject)jsonObject.get("entities")).has("media")) {
@@ -217,6 +221,14 @@ public class TweetModel extends Model {
 
     public void setReTwittedByHandle(String reTwittedByHandle) {
         this.reTwittedByHandle = reTwittedByHandle;
+    }
+
+    public String getTweetCreatedAt() {
+        return tweetCreatedAt;
+    }
+
+    public void setTweetCreatedAt(String tweetCreatedAt) {
+        this.tweetCreatedAt = tweetCreatedAt;
     }
 
     // Record Finders

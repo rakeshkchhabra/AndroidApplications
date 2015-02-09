@@ -8,15 +8,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/llretweetlayout"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="25dp">
+        android:layout_marginLeft="40dp">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:id="@+id/ivRetweetedBy"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/retweetedby"/>
+            android:src="@drawable/retweet"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,8 @@
             android:layout_toRightOf="@+id/ivRetweetedBy"
             android:layout_toEndOf="@+id/ivRetweetedBy"
             android:textColor="#ff000000"
-            android:textStyle="bold" />
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <ImageView
@@ -37,7 +38,8 @@
         android:id="@+id/ivUserPhoto"
         android:layout_below="@+id/llretweetlayout"
         android:src="@drawable/ic_launcher"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +64,8 @@
         android:layout_alignBaseline="@+id/tvUserName"
         android:textColor="#ff000000"
         android:layout_marginLeft="5dp"
-        android:gravity="center|center_vertical" />
+        android:gravity="center|center_vertical"
+        android:textSize="15sp"/>
 
     <TextView
         android:layout_width="wrap_content"

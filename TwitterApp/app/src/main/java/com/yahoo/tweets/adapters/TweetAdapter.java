@@ -35,15 +35,11 @@ public class TweetAdapter extends ArrayAdapter<TweetModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final TweetModel tweetModel = getItem(position);
-        if(tweetModel.getUserName().equals("Rakesh Chhabra")) {
-            Log.i("Debug", tweetModel.toString());
-        }
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.tweet, parent, false);
         }
         LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.llretweetlayout);
-
 
         if(tweetModel.getReTwittedBy()!=null && !tweetModel.getReTwittedBy().isEmpty()) {
             TextView reTwittedBy = (TextView) convertView.findViewById(R.id.tvReweetedBy);

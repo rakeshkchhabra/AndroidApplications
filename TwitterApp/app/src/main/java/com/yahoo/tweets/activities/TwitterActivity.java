@@ -1,16 +1,15 @@
 package com.yahoo.tweets.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -95,6 +94,33 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 populateTweetList(1);
+            }
+        });
+
+        lvTweets.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+              //  Toast.makeText(TwitterActivity.this,"Item clicked at position " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TwitterActivity.this, TweetDetailActivity.class);
+                intent.setAction("ItemDetail");
+                intent.putExtra("Tweet",tweetList.get(position));
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        EditText etTweet = (EditText) findViewById(R.id.etMyDummyTweet);
+        etTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.FragmentManager fm = fetchFragmentManager();
+                //SettingDialogFragment settingDialogFragment = new SettingDialogFragment();
+                PostTweetDialog tweetDialogFragment = PostTweetDialog.newInstance("Post Tweet");
+                Bundle args = new Bundle();
+                args.putLong("in_reply_to", 0);
+                args.putString("text", "");
+                tweetDialogFragment.setArguments(args);
+                tweetDialogFragment.show(fm, "Post Tweet");
             }
         });
 

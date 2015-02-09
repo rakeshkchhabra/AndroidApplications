@@ -28,6 +28,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 import com.yahoo.tweets.R;
 import com.yahoo.tweets.TwitterApp;
+import com.yahoo.tweets.activities.TweetDetailActivity;
 import com.yahoo.tweets.utils.DialogCallBack;
 import com.yahoo.tweets.utils.TwitterClient;
 
@@ -58,7 +59,12 @@ public class PostTweetDialog extends DialogFragment {
     @Override
     public void onAttach(Activity a){
         super.onAttach(a);
-        callBack = (DialogCallBack) a;
+        if(a instanceof TweetDetailActivity) {
+
+        }
+        else {
+            callBack = (DialogCallBack) a;
+        }
     }
 
     @Override
@@ -72,7 +78,7 @@ public class PostTweetDialog extends DialogFragment {
         dialog.getWindow().setContentView(view);
         final WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.height = 800;
         params.gravity = Gravity.CENTER;
         dialog.setCanceledOnTouchOutside(true);
         
@@ -117,6 +123,7 @@ public class PostTweetDialog extends DialogFragment {
                              Bundle savedInstanceState) {
 
         final Long in_reply_to_id =  getArguments().getLong("in_reply_to");
+
         final String text = getArguments().getString("text");
 
         View view = inflater.inflate(R.layout.activity_post_tweet, container);
@@ -128,6 +135,11 @@ public class PostTweetDialog extends DialogFragment {
 
         final int length = 140 - etMyTweet.getText().length();
         tv.setText(length+"|");
+
+        if(in_reply_to_id!=0) {
+            Button btTweet = (Button) view.findViewById(R.id.ibTweet);
+            btTweet.setText("REPLY");
+        }
 
         etMyTweet.addTextChangedListener(new TextWatcher() {
             @Override

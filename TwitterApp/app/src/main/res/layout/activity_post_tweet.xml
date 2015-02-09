@@ -4,7 +4,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="45dp"
         android:id="@+id/rlMenuBarTweet"
         android:background="#ff60b6ff">
 
@@ -30,8 +30,8 @@
             android:background="#ff60b6ff"
             android:textColor="#ff000000"
             android:backgroundTint="#ff60b6ff"
-            android:layout_marginTop="20dp"
-            android:paddingTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:paddingTop="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_toLeftOf="@+id/ibTweet"
             android:textColor="#ffe6e6e6"
             android:gravity="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 
     <ImageView
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Rakesh Chhabra"
         android:id="@+id/tvMyName"
         android:layout_alignTop="@+id/ivMyPhoto"
         android:layout_toRightOf="@+id/ivMyPhoto"
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="twitter_handle"
+        android:text="\@rakeshkchhabra"
         android:id="@+id/tvMyTwitterHandle"
         android:layout_toRightOf="@+id/tvMyName"
         android:layout_alignBaseline="@+id/tvMyName"
@@ -94,7 +94,6 @@
         android:scrollbars="vertical"
         android:background="#ffffffff"
         android:layout_marginBottom="40dp"
-        android:layout_marginLeft="20dp" />
-
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 </RelativeLayout>
