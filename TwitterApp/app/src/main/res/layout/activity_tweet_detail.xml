@@ -3,29 +3,11 @@
     android:layout_height="match_parent"
     tools:context="com.yahoo.tweets.activities.TweetDetailActivity">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:id="@+id/rlMenuBar"
-        android:background="#ff60b6ff">
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tweetSymbol"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/tweet_bird"/>
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/rlMenuBar">
+        android:layout_alignParentLeft="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"

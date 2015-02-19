@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/rlMenuBarTweet"
+        android:background="#ff60b6ff">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tweetSymbol"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/tweet_bird"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Followers"
+            android:id="@+id/tvFollowersOrFriends"
+            android:layout_toRightOf="@+id/tweetSymbol"
+            android:textColor="#ffe6e6e6"
+            android:gravity="center"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvUsers"
+        android:layout_below="@+id/rlMenuBarTweet"
+        android:layout_marginTop="10dp"/>
+</RelativeLayout>

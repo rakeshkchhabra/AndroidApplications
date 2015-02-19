@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -43,13 +44,13 @@ public class TwitterClient extends OAuthBaseClient {
 	 *    i.e client.post(apiUrl, params, handler);
 	 */
 
-    public void getTweetsList(AsyncHttpResponseHandler handler, long sinceId, String maxId) {
+    public void getTweetsList(AsyncHttpResponseHandler handler, long sinceId, long maxId) {
         String apiUrl = getApiUrl("statuses/home_timeline.json");
 
         RequestParams params = new RequestParams();
         params.put("count", 25);
         params.put("since_id",sinceId);
-        if(!maxId.equals("-1")) {
+        if(maxId != -1l) {
             params.put("max_id", maxId);
         }
         //params.put("since_id", 1);
@@ -59,10 +60,15 @@ public class TwitterClient extends OAuthBaseClient {
         Log.i("DEBUG", apiUrl + " " + params.toString());
     }
 
-    public void getUserTimeline(AsyncHttpResponseHandler handler) {
+    public void getUserTimeline(AsyncHttpResponseHandler handler, String screenName) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
         RequestParams params = new RequestParams();
+        if(screenName!=null && !screenName.isEmpty()) {
+            params.put("screen_name",screenName);
+        }
         client.get(apiUrl, params, handler);
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+
     }
 
     public void postTweet(AsyncHttpResponseHandler handler,String status, long reply_to) {
@@ -73,5 +79,73 @@ public class TwitterClient extends OAuthBaseClient {
             params.put("in_reply_to_status_id", reply_to);
         }
         client.post(apiUrl,params,handler);
+    }
+
+    public void getUserMentions(AsyncHttpResponseHandler handler, long sinceId, long maxId) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        params.put("since_id",sinceId);
+        if(maxId != -1l) {
+            params.put("max_id", maxId);
+        }
+        //params.put("since_id", 1);
+        //params.put("max_id",1);
+
+        client.get(apiUrl, params, handler);
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+    }
+
+    public void getUserProfile(AsyncHttpResponseHandler handler, String screenName) {
+        String apiUrl = getApiUrl("users/show.json");
+
+        RequestParams params = new RequestParams();
+        if(screenName!=null && !screenName.isEmpty()) {
+            params.put("screen_name",screenName);
+        }
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUserProfileBanner(AsyncHttpResponseHandler handler, String screenName) {
+        String apiUrl = getApiUrl("users/profile_banner.json");
+
+        RequestParams params = new RequestParams();
+        if(screenName!=null && !screenName.isEmpty()) {
+            params.put("screen_name",screenName);
+        }
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUserFollowers(JsonHttpResponseHandler handler, String screenName) {
+        String apiUrl = getApiUrl("followers/list.json");
+
+        RequestParams params = new RequestParams();
+        if(screenName!=null && !screenName.isEmpty()) {
+            params.put("screen_name",screenName);
+        }
+        params.put("count",200);
+        params.put("skip_status",true);
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUserFriends(JsonHttpResponseHandler handler, String screenName) {
+        String apiUrl = getApiUrl("friends/list.json");
+
+        RequestParams params = new RequestParams();
+        if(screenName!=null && !screenName.isEmpty()) {
+            params.put("screen_name",screenName);
+        }
+        params.put("count",200);
+        params.put("skip_status",true);
+        Log.i("DEBUG", apiUrl + " " + params.toString());
+
+        client.get(apiUrl, params, handler);
     }
 }

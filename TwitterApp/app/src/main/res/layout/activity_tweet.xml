@@ -1,73 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <RelativeLayout
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/rlMenuBar"
-        android:background="#ff60b6ff">
+        android:layout_height="48dp"
+        app:pstsShouldExpand="true"
+        app:pstsTextAllCaps="true"
+        app:pstsIndicatorColor="#ff60b6ff"
+        app:pstsDividerColor="#ffffffff">
+    </com.astuetz.PagerSlidingTabStrip>
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tweetSymbol"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/tweet_bird"/>
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/ibPostTweet"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/tweet_post"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Home"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tweetSymbol"
-            android:layout_toEndOf="@+id/tweetSymbol"
-            android:layout_alignBottom="@+id/tweetSymbol"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:textColor="#ffffffff" />
-    </RelativeLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
-        android:layout_below="@+id/rlMenuBar" >
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvTweets"
-            android:layout_centerHorizontal="true" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabs"
+        android:background="@android:color/white"
+        android:layout_above="@+id/linearLayout" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="What's happening?"
-        android:id="@+id/etMyDummyTweet"/>
+        android:id="@+id/etMyDummyTweet"
+        android:onClick="onClick"/>
 
     </LinearLayout>
 

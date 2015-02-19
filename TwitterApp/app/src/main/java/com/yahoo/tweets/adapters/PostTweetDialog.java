@@ -3,6 +3,7 @@ package com.yahoo.tweets.adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,7 +30,6 @@ import com.squareup.picasso.Picasso;
 import com.yahoo.tweets.R;
 import com.yahoo.tweets.TwitterApp;
 import com.yahoo.tweets.activities.TweetDetailActivity;
-import com.yahoo.tweets.models.LoggedInUser;
 import com.yahoo.tweets.utils.DialogCallBack;
 import com.yahoo.tweets.utils.TwitterClient;
 
@@ -79,8 +79,6 @@ public class PostTweetDialog extends DialogFragment {
         params.height = 800;
         params.gravity = Gravity.CENTER;
         dialog.setCanceledOnTouchOutside(true);
-        
-
         return dialog;
     }
 
@@ -92,7 +90,7 @@ public class PostTweetDialog extends DialogFragment {
 
         final String text = getArguments().getString("text");
 
-        final LoggedInUser loggedInUser = (LoggedInUser) getArguments().getSerializable("user");
+        SharedPreferences mPrefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
 
         View view = inflater.inflate(R.layout.activity_post_tweet, container);
 
@@ -127,13 +125,13 @@ public class PostTweetDialog extends DialogFragment {
         });
         etMyTweet.setSelection(text.length());
         TextView tvUserName = (TextView) view.findViewById(R.id.tvMyName);
-        tvUserName.setText(loggedInUser.getUserName());
+        tvUserName.setText(mPrefs.getString("twitterMyUserName","username"));
         TextView tvTwitterHandle = (TextView) view.findViewById(R.id.tvMyTwitterHandle);
-        tvTwitterHandle.setText("@" +loggedInUser.getScreenName());
+        tvTwitterHandle.setText("@" + mPrefs.getString("twitterMyScreenName","screenname") );
 
         ImageView imageView = (ImageView) view.findViewById(R.id.ivMyPhoto);
         imageView.setImageResource(0);
-        Picasso.with(getActivity().getBaseContext()).load(loggedInUser.getProfileURL()).into(imageView);
+        Picasso.with(getActivity().getBaseContext()).load(mPrefs.getString("twitterMyProfileURL","profileurl")).into(imageView);
 
         Button tweetButton = (Button) view.findViewById(R.id.ibTweet);
         tweetButton.setOnClickListener(new View.OnClickListener() {

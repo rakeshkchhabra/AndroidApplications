@@ -1,10 +1,14 @@
 package com.yahoo.tweets.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +34,7 @@ public class TweetDetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_detail);
+        setUpActionBar();
 
         final TweetModel tweetModel = (TweetModel) getIntent().getSerializableExtra("Tweet");
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llretweetlayout);
@@ -108,16 +113,6 @@ public class TweetDetailActivity extends ActionBarActivity {
                 replyDialogFragment.show(fm, "Reply Tweet");
             }
         });
-
-        ImageButton ibBack = (ImageButton) findViewById(R.id.tweetSymbol);
-        ibBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TweetDetailActivity.this,TwitterActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
@@ -146,5 +141,17 @@ public class TweetDetailActivity extends ActionBarActivity {
     public FragmentManager fetchFragmentManager() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         return fragmentManager;
+    }
+
+    private void setUpActionBar() {
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff60b6ff")));
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.custom_menu_bar, null);
+        ((TextView) mCustomView.findViewById(R.id.text)).setText("");
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
     }
 }
