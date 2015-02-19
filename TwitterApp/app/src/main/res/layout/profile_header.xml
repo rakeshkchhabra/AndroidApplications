@@ -111,13 +111,13 @@
                 android:textColor="#ff60b6ff" />
             <TextView
                 android:id="@+id/tvFollowingText"
-                android:text="FOLLOWERS"
+                android:text="FOLLOWING"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_marginLeft="15dp"
                 android:textColor="#ff60b6ff" />
             <TextView
                 android:id="@+id/tvFollowersText"
-                android:text="FOLLOWING"
+                android:text="FOLLOWER"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"

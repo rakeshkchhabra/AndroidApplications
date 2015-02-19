@@ -30,14 +30,16 @@ public class UsersListFragment extends DialogFragment {
 
     private List<ProfileModel> profileModels;
     private UserAdapter userAdapter;
+    private String  handle;
     private static int mode = 0;
 
-    private UsersListFragment(int mode) {
+    private UsersListFragment(int mode, String handle) {
         this.mode = mode;
+        this.handle = handle;
     }
 
-    public static UsersListFragment newInstance(String title, int mode) {
-        UsersListFragment dialogFragment = new UsersListFragment(mode);
+    public static UsersListFragment newInstance(String title, int mode,String handle) {
+        UsersListFragment dialogFragment = new UsersListFragment(mode,handle);
         Bundle arguments = new Bundle();
         arguments.putString("title", title);
         dialogFragment.setArguments(arguments);
@@ -72,11 +74,11 @@ public class UsersListFragment extends DialogFragment {
         TextView tvHeader = (TextView)view.findViewById(R.id.tvFollowersOrFriends);
 
         if(mode == 0) {
-            TwitterRestClient.fetchUserFollowers(profileModels, userAdapter, getActivity().getPreferences(getActivity().MODE_PRIVATE).getString("twitterMyScreenName", ""));
+            TwitterRestClient.fetchUserFollowers(profileModels, userAdapter, handle);
             tvHeader.setText("Followers");
         }
         else {
-            TwitterRestClient.fetchUserFriends(profileModels,userAdapter,getActivity().getPreferences(getActivity().MODE_PRIVATE).getString("twitterMyScreenName",""));
+            TwitterRestClient.fetchUserFriends(profileModels,userAdapter,handle);
             tvHeader.setText("Followings");
         }
 

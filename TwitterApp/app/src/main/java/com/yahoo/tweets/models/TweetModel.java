@@ -346,6 +346,7 @@ public class TweetModel extends Model implements ListItem, Serializable {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 android.support.v4.app.FragmentManager fm = ((TwitterActivity)context).getSupportFragmentManager();
                 DialogFragment replyDialogFragment = PostTweetDialog.newInstance("Reply Tweet");
                 Bundle args = new Bundle();

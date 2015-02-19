@@ -72,14 +72,11 @@ public class TwitterActivity extends ActionBarActivity implements DialogCallBack
             intent.putExtra("screen_name",getPreferences(MODE_PRIVATE).getString("twitterMyScreenName",""));
             startActivity(intent);
         }
-        else if(id == R.id.action_search) {
-        }
+
         else if(id == R.id.action_tweet) {
             onClick();
         }
-        else if(id == R.id.action_message) {
-
-        }
+        
         //noinspection SimplifiableIfStatement
         else if (id == R.id.action_settings) {
             return true;

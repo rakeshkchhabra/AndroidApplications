@@ -12,15 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
         android:onClick="loginToRest"
         android:src="@drawable/register"
         android:background="#ff60b6ff"
-        android:drawableLeft="@drawable/tweet_bird"
         android:paddingLeft="5dp"
-        android:text="Connect with twitter"
-        android:textColor="#ffffffff"
-    />
+        android:text="Connect to Twitter"
+        android:textColor="#ffffffff"/>
 
 </RelativeLayout>

@@ -66,7 +66,7 @@ public class TweetHeader implements ListItem {
             @Override
             public void onClick(View v) {
                 android.support.v4.app.FragmentManager fm = ((ProfileActivity)context).getSupportFragmentManager();
-                UsersListFragment tweetDialogFragment = UsersListFragment.newInstance("Followers",0);
+                UsersListFragment tweetDialogFragment = UsersListFragment.newInstance("Followers",0,profileModel.getProfileHandle());
                 tweetDialogFragment.show(fm, "Followers");
             }
         });
@@ -75,7 +75,7 @@ public class TweetHeader implements ListItem {
             @Override
             public void onClick(View v) {
                 android.support.v4.app.FragmentManager fm = ((ProfileActivity)context).getSupportFragmentManager();
-                UsersListFragment tweetDialogFragment = UsersListFragment.newInstance("Followings",1);
+                UsersListFragment tweetDialogFragment = UsersListFragment.newInstance("Followings",1,profileModel.getProfileHandle());
                 tweetDialogFragment.show(fm, "Followings");
             }
         });

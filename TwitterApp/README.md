@@ -1,10 +1,10 @@
-# Simple twitter client application
+# Twitter client application
 
 (Twitter client App README)
 
 This is a simple twitter client application for twitter
 
-Time spent: 10 hours spent in total
+Time spent: 25 hours spent in total
 
 Completed user stories:
 
@@ -33,7 +33,15 @@ Completed user stories:
  * [x] Optional: Improve the user interface and theme the app to feel "twitter branded"
  * [x] Optional: User can see embedded image media within the tweet detail view
  * [x] Optional: Compose activity is replaced with a modal overlay
-
+ * [x] Required: User can switch between Timeline and Mention views using tabs. 
+ * [x] Required: User can navigate to view their own profile
+ * [x] Required: User can click on the profile image in any tweet to see another user's profile. 
+ * [x] Required: Profile view should include that user's timeline
+ * [x] Required: User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
+ * [x] Required: User can infinitely paginate any of these timelines (home, mentions, user) by scrolling to the bottom
+ * [x] Optional: User can "reply" to any tweet on their home timeline  
+ * [x] Optional: User can click on a tweet to be taken to a "detail view" of that tweet 
+ * [x] Optional: Improve the user interface and theme the app to feel twitter branded
 Notes:
 
 ![Video Walkthrough](SimpleTwitterClient1.gif)

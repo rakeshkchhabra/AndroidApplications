@@ -1,29 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.yahoo.tweets.activities.TweetActivity">
+    <!--
     <item
         android:id="@+id/action_search"
         android:orderInCategory="1"
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always" /> -->
     <item
         android:id="@+id/action_tweet"
         android:icon="@drawable/tweet_post"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="Tweet"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/tweet_user"
-        android:orderInCategory="4"
+        android:orderInCategory="2"
         android:title="Profile"
         app:showAsAction="always" />
-    <item
+    <!--<item
         android:id="@+id/action_message"
         android:icon="@drawable/tweet_inbox"
         android:orderInCategory="3"
         android:title="Message"
-        app:showAsAction="always" />
+        app:showAsAction="always" /> -->
 
 </menu>
